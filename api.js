@@ -1,75 +1,91 @@
-// Function to fetch employee data
-async function fetchEmployeeData() {
-  try {
-    const response = await fetch('https://api.coresignal.com/employee-data');
-    const data = await response.json();
-    console.log('Employee Data:', data);
-  } catch (error) {
-    console.error('Error fetching employee data:', error);
-  }
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>jQuery API CRUD</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
 
-// Function to create a new employee
-async function createEmployee(newEmployeeData) {
-  try {
-    const response = await fetch('https://api.coresignal.com/employee-data', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+<script>
+  // Function to fetch data
+  function fetchData() {
+    $.ajax({
+      url: 'https://api.example.com/data',
+      type: 'GET',
+      success: function(data) {
+        console.log('Data:', data);
       },
-      body: JSON.stringify(newEmployeeData),
+      error: function(xhr, status, error) {
+        console.error('Error fetching data:', error);
+      }
     });
-    const data = await response.json();
-    console.log('Created employee:', data);
-  } catch (error) {
-    console.error('Error creating employee:', error);
   }
-}
 
-// Function to update an existing employee
-async function updateEmployee(employeeId, updatedEmployeeData) {
-  try {
-    const response = await fetch(`https://api.coresignal.com/employee-data/${employeeId}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
+  // Function to create data
+  function createData(newData) {
+    $.ajax({
+      url: 'https://api.example.com/data',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(newData),
+      success: function(data) {
+        console.log('Created data:', data);
       },
-      body: JSON.stringify(updatedEmployeeData),
+      error: function(xhr, status, error) {
+        console.error('Error creating data:', error);
+      }
     });
-    const data = await response.json();
-    console.log('Updated employee:', data);
-  } catch (error) {
-    console.error('Error updating employee:', error);
   }
-}
 
-// Function to delete an existing employee
-async function deleteEmployee(employeeId) {
-  try {
-    const response = await fetch(`https://api.coresignal.com/employee-data/${employeeId}`, {
-      method: 'DELETE',
+  // Function to update data
+  function updateData(id, updatedData) {
+    $.ajax({
+      url: `https://api.example.com/data/${id}`,
+      type: 'PUT',
+      contentType: 'application/json',
+      data: JSON.stringify(updatedData),
+      success: function(data) {
+        console.log('Updated data:', data);
+      },
+      error: function(xhr, status, error) {
+        console.error('Error updating data:', error);
+      }
     });
-    console.log('Employee deleted successfully');
-  } catch (error) {
-    console.error('Error deleting employee:', error);
   }
-}
 
-// Example data for creating a new employee
-const newEmployeeData = {
-  name: 'John Doe',
-  position: 'Software Engineer',
-  department: 'Engineering',
-};
+  // Function to delete data
+  function deleteData(id) {
+    $.ajax({
+      url: `https://api.example.com/data/${id}`,
+      type: 'DELETE',
+      success: function(data) {
+        console.log('Data deleted successfully');
+      },
+      error: function(xhr, status, error) {
+        console.error('Error deleting data:', error);
+      }
+    });
+  }
 
-// Example data for updating an employee
-const updatedEmployeeData = {
-  name: 'Jane Smith',
-  position: 'Senior Software Engineer',
-};
+  // Example data for creating and updating
+  const newEntry = {
+    name: 'New Entry',
+    description: 'Description of new entry'
+  };
 
-// Call functions to demonstrate CRUD operations
-fetchEmployeeData();
-createEmployee(newEmployeeData);
-updateEmployee(employeeId, updatedEmployeeData); // Replace employeeId with the actual ID
-deleteEmployee(employeeId); // Replace employeeId with the actual ID
+  const updatedEntry = {
+    name: 'Updated Entry',
+    description: 'Updated description'
+  };
+
+  // Usage examples
+  fetchData(); // Fetch existing data
+  createData(newEntry); // Create new data
+  updateData(1, updatedEntry); // Update existing data (replace 1 with the actual ID)
+  deleteData(1); // Delete existing data (replace 1 with the actual ID)
+</script>
+
+</body>
+</html>
